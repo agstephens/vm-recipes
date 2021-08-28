@@ -15,6 +15,9 @@ mkdir -p /root/.ssh
 cp ~vagrant/.ssh/authorized_keys /root/.ssh
 yum install -y git
 
+yum install -y vim-enhanced
+echo "alias vi='vim'" >> ~/.bashrc
+
 echo "[user]" > /home/vagrant/.gitconfig
 echo "        name = Ag Stephens" >> /home/vagrant/.gitconfig
 echo "        email = ag.stephens@stfc.ac.uk" >> /home/vagrant/.gitconfig
