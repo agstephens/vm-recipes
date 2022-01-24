@@ -2,17 +2,24 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "4096"]
+    vb.customize ["modifyvm", :id, "--cpus", 8]
+  end
+
   config.vm.box = "cedadev/centos7"
+  config.vm.box_version = "0.0.1"
   config.vm.synced_folder "C:/vagrant-shares/general", "/vagrant-share", 
       mount_options: ["dmode=755,fmode=644"]
-  config.vm.network "private_network", ip: "192.168.50.75"
+  config.vm.network "private_network", ip: "192.168.50.82"
   
 # copy the root key
 config.vm.provision :shell, inline: <<SHELL
 set -x
 mkdir -p /root/.ssh
 cp ~vagrant/.ssh/authorized_keys /root/.ssh
-yum install -y git wget
+yum install -y git
 
 yum install -y vim-enhanced
 echo "alias vi='vim'" >> ~/.bashrc
@@ -23,24 +30,6 @@ echo "        email = ag.stephens@stfc.ac.uk" >> /home/vagrant/.gitconfig
 chown vagrant.vagrant /home/vagrant/.gitconfig
 
 cp /home/vagrant/.gitconfig /root/.gitconfig
-
-cd
-
-INSTALL_CONDA=1
-
-if [ $INSTALL_CONDA -eq 1 ]; then
-    echo "[INFO] Installing CONDA..."
-    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-    sh Miniconda3-latest-Linux-x86_64.sh -p ${HOME}/miniconda3 -b
-    rm -f Miniconda3-latest-Linux-x86_64.sh
-    export PATH=$PATH:${HOME}/miniconda3/bin
-    echo "export PATH=\$PATH:${HOME}/miniconda3/bin" >> ${HOME}/.bashrc
-fi
-
-REPO=https://github.com/roocs/daops
-echo "[INFO] Checking out $REPO"
-git clone $REPO
-
 SHELL
 
 end
