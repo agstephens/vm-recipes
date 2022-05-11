@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
   # Increased memory (default: 512) to resolve conda envs in jaspy (30/07/2021)
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", "4096"]
-    vb.customize ["modifyvm", :id, "--cpus", 2]
+    vb.customize ["modifyvm", :id, "--cpus", 3]
   end
 
   config.vm.box = "cedadev/centos7"
