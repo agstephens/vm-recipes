@@ -1,1 +1,5 @@
-vagrant global-status | awk '/running/{print $1}' | xargs -r -d '\n' -n 1 -- vagrant suspend
+for vm in ukcp-rocky9 rocky9-general ; do
+    cd $vm/
+    vagrant halt
+    cd ../
+done
