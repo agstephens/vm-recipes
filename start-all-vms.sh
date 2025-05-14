@@ -1,6 +1,6 @@
-for vm in ukcp-rocky9 rocky9-general; do
-	echo Starting $vm
-	cd $vm/
-	vagrant up
-	cd ../
+for vm in rocky9-general ceda-wps ceda-wps-ui ; do
+    cd $vm/
+    echo "[INFO] Working on: $vm"
+    vagrant up
+    cd ../
 done

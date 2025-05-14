@@ -1,4 +1,4 @@
-for vm in ukcp-rocky9 rocky9-general ; do
+for vm in rocky9-general ceda-wps ceda-wps-ui ; do
     cd $vm/
     vagrant halt
     cd ../
